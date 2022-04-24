@@ -1,0 +1,62 @@
+<div class="row">
+
+    <div class="col-12 col-md-4">
+        <h4 class="mb-3">Add Measurement</h4>
+        <form>
+            <!-- <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                <input type="datetime-local" class="form-control" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-clipboard-data"></i></span>
+                <input type="number" class="form-control">
+                <span class="input-group-text">Kg</span>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-chat-dots"></i></span>
+                <textarea class="form-control"></textarea>
+            </div> -->
+            <div class="form-floating mb-3 border border-primary rounded-3">
+                <input type="datetime-local" class="form-control" #MeasurementDate>
+                <label for="floatingInput">Date and time of Measurement</label>
+            </div>
+            <div class="form-floating mb-3 border border-primary rounded-3">
+                <input type="number" class="form-control" placeholder="0.00" #MeasurementWeight>
+                <label for="floatingInput">Measured Weight in Kg</label>
+            </div>
+            <div class="form-floating mb-3 border border-primary rounded-3">
+                <textarea class="form-control" placeholder="Leave a comment here" #MeasurementComment></textarea>
+                <label for="floatingTextarea2">Comments</label>
+            </div>
+            <div class="d-grid mb-3">
+                <button class="btn btn-primary" type="button">Submit</button>
+              </div>
+        </form>
+    </div>
+
+    <div class="col-12 col-md-8 separator">
+        <h4 class="mb-3">Latest Measurements</h4>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Difference</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let measurement of measurements, index as i">
+                    <th scope="row">{{measurement.dateMillis | readableDateTime}}</th>
+                    <td>{{measurement.weight}}</td>
+                    <td>{{measurement.comment || "-"}}</td>
+                    <td class="text-success" getColorBasedOnDifferenceToPreviousMeasurement
+                        [class.text-success]="getColorBasedOnDifferenceToPreviousMeasurement(i)"
+                        [class.text-danger]="!getColorBasedOnDifferenceToPreviousMeasurement(i)"
+                    ><b>{{getStylizedWeightDifference(i)}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
